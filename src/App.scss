@@ -99,5 +99,38 @@
 			}
 		}
 	}
+}
 
+.menu-section{
+
+	//margin-top;
+
+	@media screen and (max-width: 960px){margin: 3rem 3rem;}
+	@media screen and (min-width: 960px){margin: 3rem 8rem;}
+	.title{
+		font-size: 1.5rem;
+		font-weight: bold;
+		margin-left: 1rem;
+		margin-bottom: 2rem;
+	}
+	.cards{
+		display: flex;
+	}
+}
+
+.card-menu{
+	margin-bottom: 2rem;
+	.card-title{
+		font-size: 1.0rem;
+		font-weight: bold;
+	}
+	.card-text{
+		font-size: .9rem;
+		color: darkgray;
+		display: -webkit-box;
+		white-space: normal;
+		height: 4rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 }

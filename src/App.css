@@ -72,4 +72,32 @@
         vertical-align: middle;
         margin-right: .5rem; }
 
+@media screen and (max-width: 960px) {
+  .menu-section {
+    margin: 3rem 3rem; } }
+@media screen and (min-width: 960px) {
+  .menu-section {
+    margin: 3rem 8rem; } }
+.menu-section .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-left: 1rem;
+  margin-bottom: 2rem; }
+.menu-section .cards {
+  display: flex; }
+
+.card-menu {
+  margin-bottom: 2rem; }
+  .card-menu .card-title {
+    font-size: 1.0rem;
+    font-weight: bold; }
+  .card-menu .card-text {
+    font-size: .9rem;
+    color: darkgray;
+    display: -webkit-box;
+    white-space: normal;
+    height: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
 /*# sourceMappingURL=App.css.map */
