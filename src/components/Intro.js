@@ -7,7 +7,7 @@ import moment from 'moment';
 class Intro extends Component {
 	render() {
 		return (
-			<div className=" d-flex intro">
+			<div className="row d-flex intro">
 				<IntroMain />
 				<IntroNews newsItems={this.props.recentNews} />
 			</div>
@@ -18,7 +18,7 @@ class Intro extends Component {
 const IntroMain = () => {
 	return (
 		<div
-			className="main col-md-8"
+			className="main col-md-7"
 			style={{ backgroundImage: `url(${introImg})` }}
 		>
 			<div className="wrapper">
@@ -38,7 +38,7 @@ const IntroMain = () => {
 class IntroNews extends Component {
 	render() {
 		return (
-			<div className="news col-md-4">
+			<div className="news col-md-5">
 				<div className="header">
 					<p className="title">News</p>
 					<div className="nav ml-auto align-self-center">

@@ -6,7 +6,7 @@ import defaultUserImage from '../static/user.svg';
 class Header extends Component {
 	render() {
 		return (
-			<nav className="navbar navbar-expand navbar-light bg-light">
+			<nav className="navbar navbar-expand navbar-light">
 				<Link className="navbar-brand" to="/">
 					<b>Label Tong</b>
 				</Link>
