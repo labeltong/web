@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import Intro from '../components/Intro';
 
 class Home extends Component {
 	render() {
-		return <div>Home</div>;
+		return (
+			<div>
+				<Intro />
+			</div>
+		);
 	}
 }
 
