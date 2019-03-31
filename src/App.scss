@@ -28,6 +28,10 @@
 }
 
 .intro{
+	margin-left: 0;
+	margin-right: 0;
+	flex-wrap: wrap;
+
 	.main{
 		background-size: cover;
 		color: white;
@@ -105,9 +109,6 @@
 }
 
 .menu-section{
-
-	//margin-top;
-
 	@media screen and (max-width: 960px){margin: 3rem 3rem;}
 	@media screen and (min-width: 960px){margin: 3rem 8rem;}
 	.title{

@@ -7,7 +7,7 @@ import moment from 'moment';
 class Intro extends Component {
 	render() {
 		return (
-			<div className="row d-flex intro">
+			<div className="d-flex intro">
 				<IntroMain />
 				<IntroNews newsItems={this.props.recentNews} />
 			</div>
