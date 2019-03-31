@@ -9,6 +9,7 @@ import {
 
 import Header from './components/Header';
 import Home from './pages/Home';
+import Footer from './components/Footer';
 
 import './App.scss';
 
@@ -22,6 +23,7 @@ class App extends Component {
 						<Route exact path="/" component={Home} />
 						<Redirect to="/" />
 					</Switch>
+					<Footer />
 				</div>
 			</Router>
 		);
