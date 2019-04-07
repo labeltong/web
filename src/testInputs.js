@@ -1,3 +1,5 @@
+import classificationImg from './static/ex_classification.png';
+
 export const IntroNewsTestInput = [
 	{
 		title: 'LabelTong',
@@ -17,3 +19,6 @@ export const IntroNewsTestInput = [
 	// 	timestamp: '2019-03-25T10:35:24-08:00',
 	// },
 ];
+
+export const exClassImg = classificationImg;
+export const exClassOptions = ['CAT', 'DOG', 'HUMAN', 'CHICKEN', 'COFFEE'];
