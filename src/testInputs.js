@@ -1,4 +1,5 @@
 import classificationImg from './static/ex_classification.png';
+import boundingImg from './static/ex_bounding.png';
 
 export const IntroNewsTestInput = [
 	{
@@ -22,3 +23,5 @@ export const IntroNewsTestInput = [
 
 export const exClassImg = classificationImg;
 export const exClassOptions = ['CAT', 'DOG', 'HUMAN', 'CHICKEN', 'COFFEE'];
+
+export const exBounding = boundingImg;
