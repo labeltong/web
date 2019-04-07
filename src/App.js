@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 
 import Classification from './pages/Classification';
+import Bounding from './pages/Bounding';
 
 import './App.scss';
 
@@ -24,6 +25,7 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/label/class" component={Classification} />
+						<Route exact path="/label/bounding" component={Bounding} />
 						<Redirect to="/" />
 					</Switch>
 					<Footer />
