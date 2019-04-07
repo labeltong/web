@@ -24,7 +24,9 @@ class Footer extends Component {
 					<div className="logo">LABELTONG</div>
 					<div className="indices">
 						{footerIndex.map(index => (
-							<p className="index">{index}</p>
+							<p className="index" key={index}>
+								{index}
+							</p>
 						))}
 					</div>
 				</div>
