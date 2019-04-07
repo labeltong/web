@@ -150,4 +150,65 @@
       margin-right: 1rem;
       cursor: pointer; }
 
+.label-class, .label-bounding {
+  padding: 2rem;
+  background-color: white; }
+  .label-class h5, .label-bounding h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 3rem; }
+  .label-class button, .label-bounding button {
+    color: #FA6980;
+    border-color: #FA6980;
+    align-self: flex-end; }
+    .label-class button:hover, .label-class button:active, .label-bounding button:hover, .label-bounding button:active {
+      background-color: #FA6980;
+      color: white; }
+
+.label-class .content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .label-class .content .image {
+    padding: 0; }
+    .label-class .content .image img {
+      width: 100%; }
+  .label-class .content .control {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center; }
+    .label-class .content .control .options {
+      display: flex;
+      flex-wrap: wrap; }
+      .label-class .content .control .options .option {
+        width: 45%; }
+        .label-class .content .control .options .option input {
+          margin-right: 1rem;
+          margin-bottom: 1rem; }
+    .label-class .content .control button {
+      align-self: center;
+      margin-top: 2rem;
+      width: 80%; }
+
+.label-bounding .content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .label-bounding .content .canvas {
+    padding: 0; }
+    .label-bounding .content .canvas h6 {
+      font-weight: bold; }
+  .label-bounding .content .control {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .label-bounding .content .control .images img {
+      margin: 1rem; }
+      .label-bounding .content .control .images img:hover {
+        opacity: 0.5; }
+    .label-bounding .content .control button {
+      align-self: flex-end;
+      width: 80%; }
+
 /*# sourceMappingURL=App.css.map */

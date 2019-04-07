@@ -188,3 +188,94 @@
 		}
 	}
 }
+
+.label-class, .label-bounding {
+	padding: 2rem;
+	background-color: white;
+	h5 {
+		font-size: 1.5rem;
+		font-weight: bold;
+		height: 3rem;
+	}
+	button {
+		color: #FA6980;
+		border-color: #FA6980;
+		align-self: flex-end;
+		&:hover, &:active {
+			background-color: #FA6980;
+			color: white;
+		}
+	}
+}
+
+.label-class {
+	.content {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		.image {
+			padding: 0;
+			img {
+				width: 100%;
+			}
+		}
+		.control {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: column;
+			align-items: center;
+
+			.options {
+				display: flex;
+				flex-wrap: wrap;
+				.option {
+					width: 45%;
+					input {
+						margin-right: 1rem;
+						margin-bottom: 1rem;
+					}
+				}
+			}
+			button {
+				align-self: center;
+				margin-top: 2rem;
+				width: 80%;
+			}
+		}
+	}
+}
+
+.label-bounding{
+	.content{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		.canvas{
+			padding: 0;
+			h6 {
+				font-weight: bold;
+			}
+		}
+		.control{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			.images{
+
+				img{
+					margin: 1rem;
+					&:hover{
+						opacity: 0.5;
+					}
+				}
+			}
+			button{
+				align-self: flex-end;
+				width: 80%
+			}
+		}
+	}
+}
