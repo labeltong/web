@@ -124,9 +124,13 @@
 
 .card-menu{
 	margin-bottom: 2rem;
+	.card-img{
+		cursor: pointer;
+	}
 	.card-title{
 		font-size: 1.0rem;
 		font-weight: bold;
+		cursor: pointer;
 	}
 	.card-text{
 		font-size: .9rem;
@@ -136,6 +140,10 @@
 		height: 4rem;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		cursor: pointer;
+		&:hover{
+			color: darkslategray;
+		}
 	}
 }
 
