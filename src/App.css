@@ -6,19 +6,49 @@
   padding: .8rem 1rem; }
   .navbar .nav-link {
     font-weight: bold; }
-  .navbar .point {
+  .navbar i {
+    top: auto;
+    bottom: auto;
+    padding: 0; }
+  .navbar .fa-coins {
     display: inline-block;
     padding: .5rem 1rem;
     font-weight: bold;
     margin-left: 1rem; }
-  .navbar .fa-coins {
-    margin-right: 0.3rem; }
-  .navbar .profile-img {
-    display: inline-block;
-    height: 2.5rem;
-    width: 2.5rem;
-    padding: .25rem 0;
-    clip-path: circle(1rem at center); }
+  .navbar .dropdown {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
+    border-radius: 4px;
+    left: auto;
+    right: 1.2rem;
+    z-index: 100; }
+    .navbar .dropdown:before, .navbar .dropdown:after {
+      content: "";
+      display: inline-block;
+      position: absolute; }
+    .navbar .dropdown:before {
+      border: 8px solid transparent;
+      border-bottom-color: rgba(27, 31, 35, 0.15);
+      left: auto;
+      right: 9px;
+      top: -16px; }
+    .navbar .dropdown:after {
+      left: auto;
+      right: 10px;
+      top: -14px;
+      border: 7px solid transparent;
+      border-bottom-color: #fff; }
+    .navbar .dropdown div {
+      font-size: 1rem !important;
+      font-weight: bold !important; }
+  .navbar .user-menu.dropdown {
+    width: 10rem; }
+  .navbar .login-menu.dropdown {
+    width: 15rem; }
+  .navbar button:focus {
+    box-shadow: unset; }
 
 .intro {
   margin-left: 0;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import defaultUserImage from '../static/user.svg';
+import { FacebookButton, GoogleButton } from './SocialButton';
 
 class Header extends Component {
 	render() {
@@ -22,20 +22,11 @@ class Header extends Component {
 								Label
 							</Link>
 						</li>
-
-						<li className="nav-item">
-							<div className="point">
-								<i className="fas fa-coins" />
-								{this.props.points}
-							</div>
-						</li>
-						<li className="nav-item">
-							<img
-								src={defaultUserImage}
-								className="profile-img"
-								alt="profile"
-							/>
-						</li>
+						{this.props.user ? (
+							<UserMenu user={this.props.user} />
+						) : (
+							<LoginMenu />
+						)}
 					</ul>
 				</div>
 			</nav>
@@ -43,6 +34,49 @@ class Header extends Component {
 	}
 }
 
-Header.defaultProps = { points: 5000 };
+const UserMenu = ({ user }) => {
+	return (
+		<div className="user-menu">
+			<i className="fas fa-coins" />
+			{user.points}
+			<button className="btn">
+				<i className="fas fa-user" />
+			</button>
+			<div className="dropdown">
+				<button className="btn">
+					<i className="fas fa-sign-out-alt" /> Logout
+				</button>
+			</div>
+		</div>
+	);
+};
+
+class LoginMenu extends Component {
+	state = { show: false };
+
+	render() {
+		return (
+			<div className="login-menu">
+				<button
+					className="btn"
+					onClick={() => {
+						this.setState({ show: true });
+					}}
+					onBlur={() => {
+						this.setState({ show: false });
+					}}
+				>
+					<i className="fas fa-sign-in-alt" />
+				</button>
+				{this.state.show && (
+					<div className="dropdown">
+						<FacebookButton />
+						<GoogleButton />
+					</div>
+				)}
+			</div>
+		);
+	}
+}
 
 export default Header;
