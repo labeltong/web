@@ -25,7 +25,7 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="App">
-					<Header user={this.state.user} />
+					<Header user={null} />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/label/class" component={Classification} />

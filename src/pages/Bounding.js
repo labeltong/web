@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { exBounding } from '../testInputs';
+import { withRouter } from 'react-router-dom';
 
 class Bounding extends Component {
 	state = {
@@ -8,14 +8,25 @@ class Bounding extends Component {
 	};
 
 	componentDidMount() {
-		// get image, init canvas with the image
-		let img = new Image();
-		img.src = exBounding;
-		img.onload = () => {
-			this.setState({ img: img }, () => {
-				this.initCanvas();
+		fetch('http://54.180.195.179:19432/dataset/list/db_test2/get').then(res => {
+			res.json().then(data => {
+				this.setState(
+					{
+						img: data.base_64_data,
+					},
+					() => {
+						// get image, init canvas with the image
+						let img = new Image();
+						img.src = `data:image/png;base64, ${this.state.img}`;
+						img.onload = () => {
+							this.setState({ img: img }, () => {
+								this.initCanvas();
+							});
+						};
+					}
+				);
 			});
-		};
+		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -28,33 +39,45 @@ class Bounding extends Component {
 		return (
 			<div className="label-bounding">
 				<h5>Bounding</h5>
-				<div className="content">
-					<div className="canvas col-lg-6">
-						<h6>Find {this.props.target} in image below </h6>
-						<canvas ref="canvas">
-							Your browser does not support the canvas element.
-						</canvas>
-					</div>
-					<div className="control col-lg-4">
-						<div className="images">
-							{this.state.rects.map((r, idx) => (
-								<img
-									height="50"
-									src={r.url}
-									key={idx}
-									id={idx}
-									onClick={e => {
-										let id = parseInt(e.target.id);
-										this.setState({
-											rects: this.state.rects.filter((r, i) => i !== id),
-										});
-									}}
-								/>
-							))}
+				{this.state.img ? (
+					<div className="content">
+						<div className="target col-lg-6">
+							<h6>Find '{this.props.target}' in image below </h6>
+							<div className="canvas-wrapper">
+								<canvas ref="canvas">
+									Your browser does not support the canvas element.
+								</canvas>
+							</div>
 						</div>
-						<button className="btn">Submit</button>
+						<div className="control col-lg-4">
+							<div className="images">
+								{this.state.rects.map((r, idx) => (
+									<img
+										src={r.url}
+										key={idx}
+										id={idx}
+										onClick={e => {
+											let id = parseInt(e.target.id);
+											this.setState({
+												rects: this.state.rects.filter((r, i) => i !== id),
+											});
+										}}
+									/>
+								))}
+							</div>
+							<button
+								className="btn"
+								onClick={() => {
+									this.props.history.push('/');
+								}}
+							>
+								Submit
+							</button>
+						</div>
 					</div>
-				</div>
+				) : (
+					<div> Loading ... </div>
+				)}
 			</div>
 		);
 	}
@@ -65,10 +88,13 @@ class Bounding extends Component {
 
 		// set width to 100% of parent,
 		// set height to make image preserve ratio
-		const ratio =
+		const wRatio =
 			canvas.parentElement.offsetWidth / this.state.img.naturalWidth;
-		canvas.width = parseInt(ratio * this.state.img.naturalWidth);
-		canvas.height = parseInt(ratio * this.state.img.naturalHeight);
+		const hRatio =
+			canvas.parentElement.offsetHeight / this.state.img.naturalHeight;
+
+		canvas.width = Math.floor(wRatio * this.state.img.naturalWidth);
+		canvas.height = Math.floor(hRatio * this.state.img.naturalHeight);
 
 		let drag, startX, startY;
 		canvas.onmousedown = e => {
@@ -94,7 +120,14 @@ class Bounding extends Component {
 				) {
 					this.setState({
 						rects: this.state.rects.concat(
-							this.getCroppedImage(startX, startY, e.offsetX, e.offsetY, ratio)
+							this.getCroppedImage(
+								startX,
+								startY,
+								e.offsetX,
+								e.offsetY,
+								wRatio,
+								hRatio
+							)
 						),
 					});
 				} else {
@@ -121,16 +154,16 @@ class Bounding extends Component {
 		});
 	};
 
-	getCroppedImage = (x1, y1, x2, y2, ratio) => {
+	getCroppedImage = (x1, y1, x2, y2, wRatio, hRatio) => {
 		// temp canvas
 		let bufCanvas = document.createElement('canvas');
 		const bufCtx = bufCanvas.getContext('2d');
 
 		// offsets for original image
-		const l = parseInt(Math.min(x1, x2) / ratio);
-		const t = parseInt(Math.min(y1, y2) / ratio);
-		const w = parseInt(Math.abs(x2 - x1) / ratio);
-		const h = parseInt(Math.abs(y2 - y1) / ratio);
+		const l = Math.floor(Math.min(x1, x2) / wRatio);
+		const t = Math.floor(Math.min(y1, y2) / hRatio);
+		const w = Math.floor(Math.abs(x2 - x1) / wRatio);
+		const h = Math.floor(Math.abs(y2 - y1) / hRatio);
 
 		bufCanvas.width = w;
 		bufCanvas.height = h;
@@ -150,7 +183,7 @@ class Bounding extends Component {
 }
 
 Bounding.defaultProps = {
-	target: 'Car',
+	target: 'Face',
 };
 
-export default Bounding;
+export default withRouter(Bounding);
