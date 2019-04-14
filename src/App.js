@@ -17,11 +17,15 @@ import Bounding from './pages/Bounding';
 import './App.scss';
 
 class App extends Component {
+	state = {
+		user: { points: 0 },
+	};
+
 	render() {
 		return (
 			<Router>
 				<div className="App">
-					<Header />
+					<Header user={null} />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/label/class" component={Classification} />

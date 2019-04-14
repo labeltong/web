@@ -5,26 +5,57 @@
 .navbar{
 	background-color: #e4e4e4;
 	padding: .8rem 1rem;
-
 	.nav-link {
 		font-weight: bold;
 	}
-	.point{
+	i{
+		top: auto;
+		bottom: auto;
+		padding: 0;
+	}
+	.fa-coins{
 		display: inline-block;
 		padding: .5rem 1rem;
 		font-weight: bold;
 		margin-left: 1rem;
 	}
-	.fa-coins{
-		margin-right: 0.3rem;
+	.dropdown{
+		position: absolute;
+		background-color: #fff;
+		border: 1px solid rgba(27,31,35,.15);
+		box-shadow: 0 3px 12px rgba(27,31,35,.15);
+		border-radius: 4px;
+		left: auto;
+		right: 1.2rem;
+		z-index: 100;
+		&:before, &:after{
+			content: "";
+			display: inline-block;
+			position: absolute;
+		}
+		&:before{
+			border: 8px solid transparent;
+			border-bottom-color: rgba(27,31,35,.15);
+			left: auto;
+			right: 9px;
+			top: -16px;
+		}
+		&:after{
+			left: auto;
+			right: 10px;
+			top: -14px;
+			border: 7px solid transparent;
+			border-bottom-color: #fff;
+		}
+		div{
+			font-size: 1rem !important;
+			font-weight: bold !important;
+		}
 	}
-	.profile-img{
-		display: inline-block;
-		height: 2.5rem;
-		width: 2.5rem;
-		padding: .25rem 0;
-		clip-path: circle(1rem at center);
-	}
+	.user-menu.dropdown{ width: 10rem; }
+	.login-menu.dropdown { width: 15rem; }
+	button:focus{ box-shadow: unset}
+
 }
 
 .intro{
@@ -218,6 +249,7 @@
 			padding: 0;
 			img {
 				width: 100%;
+				height: 70vh;
 			}
 		}
 		.control {
@@ -227,6 +259,7 @@
 			align-items: center;
 
 			.options {
+				width: 80%;
 				display: flex;
 				flex-wrap: wrap;
 				.option {
@@ -252,10 +285,13 @@
 		flex-wrap: wrap;
 		justify-content: center;
 
-		.canvas{
+		.target{
 			padding: 0;
 			h6 {
 				font-weight: bold;
+			}
+			.canvas-wrapper {
+				height: 70vh;
 			}
 		}
 		.control{
@@ -267,6 +303,7 @@
 
 				img{
 					margin: 1rem;
+					height: 100px;
 					&:hover{
 						opacity: 0.5;
 					}
