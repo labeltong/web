@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FacebookButton, GoogleButton } from './SocialButton';
+import SocialButton, { FacebookButton, GoogleButton } from './SocialButton';
+import appID from '../socialAppID';
 
 class Header extends Component {
 	render() {
@@ -70,13 +71,28 @@ class LoginMenu extends Component {
 				</button>
 				{this.state.show && (
 					<div className="dropdown">
-						<FacebookButton />
-						<GoogleButton />
+						<FacebookButton
+							onLoginSuccess={this.handleSocialLogin}
+							onLoginFailure={this.handleSocialLoginFailure}
+						/>
+						<GoogleButton
+							onLoginSuccess={this.handleSocialLogin}
+							onLoginFailure={this.handleSocialLoginFailure}
+						/>
 					</div>
 				)}
 			</div>
 		);
 	}
+
+	handleSocialLogin = user => {
+		console.log(user);
+		const token = user._token.accessToken;
+	};
+
+	handleSocialLoginFailure = err => {
+		console.error(err);
+	};
 }
 
 export default Header;

@@ -5,11 +5,33 @@ import {
 	GoogleLoginButton,
 } from 'react-social-login-buttons';
 
-export const FacebookButton = ({ onClick, ...props }) => {
-	let FButton = SocialLogin(FacebookLoginButton);
-	return <FButton provider="facebook" onClick={onClick} {...props} />;
+import appID from '../socialAppID';
+
+export const GoogleButton = ({ onLoginSuccess, onLoginFailure }) => {
+	const SocialGButton = SocialLogin(({ triggerLogin, ...props }) => (
+		<GoogleLoginButton onClick={triggerLogin} {...props} />
+	));
+
+	return (
+		<SocialGButton
+			provider="google"
+			appId={appID.googleAppID}
+			onLoginSuccess={onLoginSuccess}
+			onLoginFailure={onLoginFailure}
+		/>
+	);
 };
-export const GoogleButton = ({ onClick, ...props }) => {
-	let GButton = SocialLogin(GoogleLoginButton);
-	return <GButton provider="google" onClick={onClick} {...props} />;
+export const FacebookButton = ({ onLoginSuccess, onLoginFailure }) => {
+	const SocialGButton = SocialLogin(({ triggerLogin, ...props }) => (
+		<FacebookLoginButton onClick={triggerLogin} {...props} />
+	));
+
+	return (
+		<SocialGButton
+			provider="facebook"
+			appId={appID.facebookAppID}
+			onLoginSuccess={onLoginSuccess}
+			onLoginFailure={onLoginFailure}
+		/>
+	);
 };

@@ -26,3 +26,4 @@ yarn-error.log*
 # dev
 .prettierrc
 *.css.map
+src/socialAppID.js
