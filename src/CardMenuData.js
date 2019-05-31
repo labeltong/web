@@ -22,7 +22,7 @@ export const MethodMenusData = [
 	},
 	{
 		title: 'Sound Classification',
-		link: '/label/sound',
+		link: '/label/audio',
 		img: soundImage,
 		description:
 			'Classify sound! Classify sound! Classify sound! Classify sound! Classify sound! Classify sound! Classify sound! Classify sound! ',

@@ -244,12 +244,19 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-
+		align-content: center;
 		.image {
 			padding: 0;
 			img {
 				width: 100%;
 				height: 70vh;
+			}
+		}
+		.audio{
+			margin: auto;
+			audio{
+				margin: auto;
+				width: 100%;
 			}
 		}
 		.control {

@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 
 import Classification from './pages/Classification';
 import Bounding from './pages/Bounding';
+import AudioClassification from './pages/AudioClassification';
 
 import './App.scss';
 import { socialLogin } from './api';
@@ -30,6 +31,7 @@ class App extends Component {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/label/class" component={Classification} />
 						<Route exact path="/label/bounding" component={Bounding} />
+						<Route exact path="/label/audio" component={AudioClassification} />
 						<Redirect to="/" />
 					</Switch>
 					<Footer />
