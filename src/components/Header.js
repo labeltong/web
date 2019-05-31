@@ -26,7 +26,7 @@ class Header extends Component {
 						{this.props.user ? (
 							<UserMenu user={this.props.user} />
 						) : (
-							<LoginMenu />
+							<LoginMenu onLogin={this.props.onLogin} />
 						)}
 					</ul>
 				</div>
@@ -35,22 +35,34 @@ class Header extends Component {
 	}
 }
 
-const UserMenu = ({ user }) => {
-	return (
-		<div className="user-menu">
-			<i className="fas fa-coins" />
-			{user.points}
-			<button className="btn">
-				<i className="fas fa-user" />
-			</button>
-			<div className="dropdown">
-				<button className="btn">
-					<i className="fas fa-sign-out-alt" /> Logout
+class UserMenu extends Component {
+	state = { show: false };
+
+	render() {
+		return (
+			<div className="user-menu">
+				<i className="fas fa-coins" />0
+				<button
+					className="btn"
+					onClick={() => {
+						this.setState({ show: !this.state.show });
+					}}
+				>
+					<i className="fas fa-user mr-2" />
+					{this.props.user.name}
 				</button>
+				<div
+					className="dropdown"
+					style={this.state.show ? {} : { display: 'none' }}
+				>
+					<button className="btn">
+						<i className="fas fa-sign-out-alt" /> Logout
+					</button>
+				</div>
 			</div>
-		</div>
-	);
-};
+		);
+	}
+}
 
 class LoginMenu extends Component {
 	state = { show: false };
@@ -61,38 +73,31 @@ class LoginMenu extends Component {
 				<button
 					className="btn"
 					onClick={() => {
-						this.setState({ show: true });
-					}}
-					onBlur={() => {
-						this.setState({ show: false });
+						this.setState({ show: !this.state.show });
 					}}
 				>
 					<i className="fas fa-sign-in-alt" />
 				</button>
-				{this.state.show && (
-					<div className="dropdown">
-						<FacebookButton
-							onLoginSuccess={this.handleSocialLogin}
-							onLoginFailure={this.handleSocialLoginFailure}
-						/>
-						<GoogleButton
-							onLoginSuccess={this.handleSocialLogin}
-							onLoginFailure={this.handleSocialLoginFailure}
-						/>
-					</div>
-				)}
+				<div
+					className="dropdown"
+					style={this.state.show ? {} : { display: 'none' }}
+				>
+					<FacebookButton
+						onLoginSuccess={this.props.onLogin}
+						onLoginFailure={err => {
+							console.error(err);
+						}}
+					/>
+					<GoogleButton
+						onLoginSuccess={this.props.onLogin}
+						onLoginFailure={err => {
+							console.error(err);
+						}}
+					/>
+				</div>
 			</div>
 		);
 	}
-
-	handleSocialLogin = user => {
-		console.log(user);
-		const token = user._token.accessToken;
-	};
-
-	handleSocialLoginFailure = err => {
-		console.error(err);
-	};
 }
 
 export default Header;

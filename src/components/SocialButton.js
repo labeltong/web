@@ -21,13 +21,14 @@ export const GoogleButton = ({ onLoginSuccess, onLoginFailure }) => {
 		/>
 	);
 };
+
 export const FacebookButton = ({ onLoginSuccess, onLoginFailure }) => {
-	const SocialGButton = SocialLogin(({ triggerLogin, ...props }) => (
+	const SocialFButton = SocialLogin(({ triggerLogin, ...props }) => (
 		<FacebookLoginButton onClick={triggerLogin} {...props} />
 	));
 
 	return (
-		<SocialGButton
+		<SocialFButton
 			provider="facebook"
 			appId={appID.facebookAppID}
 			onLoginSuccess={onLoginSuccess}
