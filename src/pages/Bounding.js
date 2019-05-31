@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { getDataByMethod, submitAnswer } from '../api';
 
 class Bounding extends Component {
 	state = {
@@ -7,26 +8,31 @@ class Bounding extends Component {
 		rects: [],
 	};
 
-	componentDidMount() {
-		fetch('http://54.180.195.179:19432/dataset/list/db_test2/get').then(res => {
-			res.json().then(data => {
-				this.setState(
-					{
-						img: data.base_64_data,
-					},
-					() => {
-						// get image, init canvas with the image
-						let img = new Image();
-						img.src = `data:image/png;base64, ${this.state.img}`;
-						img.onload = () => {
-							this.setState({ img: img }, () => {
-								this.initCanvas();
-							});
-						};
-					}
-				);
+	getProblem = () => {
+		getDataByMethod(1).then(result => {
+			this.setState({ ...result }, () => {
+				// get image, init canvas with the image
+				let img = new Image();
+				img.src = this.state.src;
+				img.crossOrigin = 'Anonymous';
+				img.onload = () => {
+					this.setState({ img: img }, () => {
+						this.initCanvas();
+					});
+				};
 			});
 		});
+	};
+
+	submit = () => {
+		submitAnswer().then(result => {
+			alert('제출 완료');
+			this.getProblem();
+		});
+	};
+
+	componentDidMount() {
+		this.getProblem();
 	}
 
 	componentDidUpdate(prevProps, prevState) {

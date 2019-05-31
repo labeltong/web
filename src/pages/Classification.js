@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { getDataByMethod, submitAnswer } from '../api';
 
 class Classification extends Component {
-	state = { img: '', options: [] };
+	state = { id: null, src: null, options: [] };
+
+	getProblem = () => {
+		getDataByMethod(2)
+			.then(result => {
+				this.setState({ ...result });
+			})
+			.catch(err => {
+				alert('Please sign in first');
+				this.props.history.push('/');
+			});
+	};
+
+	submit = () => {
+		submitAnswer().then(result => {
+			alert('제출 완료');
+			this.getProblem();
+		});
+	};
 
 	componentDidMount() {
-		fetch('http://54.180.195.179:19432/dataset/list/db_test/get').then(res => {
-			res.json().then(data => {
-				this.setState({
-					img: data.base_64_data,
-					options: data.Dataq,
-				});
-			});
-		});
+		this.getProblem();
 	}
 
 	render() {
 		return (
 			<div className="label-class">
 				<h5>Classification</h5>
-				{this.state.img ? (
+				{this.state.src ? (
 					<div className="content">
 						<div className="image col-lg-7">
-							<img
-								src={`data:image/png;base64, ${this.state.img}`}
-								alt="classification"
-							/>
+							<img src={this.state.src} alt="classification" />
 						</div>
 						<div className="control col-lg-4">
 							<div className="options">
@@ -36,12 +45,7 @@ class Classification extends Component {
 									</div>
 								))}
 							</div>
-							<button
-								className="btn"
-								onClick={() => {
-									this.props.history.push('/');
-								}}
-							>
+							<button className="btn" onClick={this.submit}>
 								Submit
 							</button>
 						</div>
