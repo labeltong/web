@@ -1,32 +1,31 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { getDataByMethod, submitAnswer } from '../api';
 
 class Bounding extends Component {
 	state = {
+		id: null,
 		img: null,
 		rects: [],
 	};
 
 	componentDidMount() {
-		fetch('http://54.180.195.179:19432/dataset/list/db_test2/get').then(res => {
-			res.json().then(data => {
-				this.setState(
-					{
-						img: data.base_64_data,
-					},
-					() => {
-						// get image, init canvas with the image
-						let img = new Image();
-						img.src = `data:image/png;base64, ${this.state.img}`;
-						img.onload = () => {
-							this.setState({ img: img }, () => {
-								this.initCanvas();
-							});
-						};
-					}
-				);
+		getDataByMethod(1)
+			.then(data => {
+				console.log(data);
+				let img = new Image();
+				img.src = `${data.DataPath}`;
+				img.crossOrigin = 'Anonymous';
+				img.onload = () => {
+					this.setState({ id: data.ID, img: img }, () => {
+						this.initCanvas();
+					});
+				};
+			})
+			.catch(() => {
+				alert('로그인 해주세요');
+				this.props.history.push('/');
 			});
-		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -34,6 +33,15 @@ class Bounding extends Component {
 			this.redrawCanvas();
 		}
 	}
+
+	submit = () => {
+		if (this.state.rects.length > 0) {
+			const p = this.state.rects[0].pos;
+			submitAnswer(this.state.id, `${p.l},${p.t},${p.l + p.w},${p.t + p.h}`);
+		} else {
+			alert('영역을 선택해주세요');
+		}
+	};
 
 	render() {
 		return (
@@ -68,7 +76,7 @@ class Bounding extends Component {
 							<button
 								className="btn"
 								onClick={() => {
-									this.props.history.push('/');
+									this.submit();
 								}}
 							>
 								Submit
