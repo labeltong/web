@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import SocialButton, { FacebookButton, GoogleButton } from './SocialButton';
-import appID from '../socialAppID';
+import { FacebookButton, GoogleButton } from './SocialButton';
 
 class Header extends Component {
 	render() {
