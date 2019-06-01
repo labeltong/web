@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FacebookButton, GoogleButton } from './SocialButton';
+import { GoogleButton } from './SocialButton';
 
 class Header extends Component {
 	render() {
@@ -23,7 +23,7 @@ class Header extends Component {
 							</Link>
 						</li>
 						{this.props.user ? (
-							<UserMenu user={this.props.user} />
+							<UserMenu user={this.props.user} onLogout={this.props.onLogout} />
 						) : (
 							<LoginMenu onLogin={this.props.onLogin} />
 						)}
@@ -40,7 +40,7 @@ class UserMenu extends Component {
 	render() {
 		return (
 			<div className="user-menu">
-				<i className="fas fa-coins" />0
+				<i className="fas fa-coins" /> {this.props.user.point}
 				<button
 					className="btn"
 					onClick={() => {
@@ -54,7 +54,7 @@ class UserMenu extends Component {
 					className="dropdown"
 					style={this.state.show ? {} : { display: 'none' }}
 				>
-					<button className="btn">
+					<button className="btn" onClick={this.props.onLogout}>
 						<i className="fas fa-sign-out-alt" /> Logout
 					</button>
 				</div>
@@ -81,12 +81,6 @@ class LoginMenu extends Component {
 					className="dropdown"
 					style={this.state.show ? {} : { display: 'none' }}
 				>
-					<FacebookButton
-						onLoginSuccess={this.props.onLogin}
-						onLoginFailure={err => {
-							console.error(err);
-						}}
-					/>
 					<GoogleButton
 						onLoginSuccess={this.props.onLogin}
 						onLoginFailure={err => {

@@ -122,7 +122,6 @@
 					&:hover {
 						color: darkslategray;
 					}
-
 				}
 				.time{
 					color: darkgray;
@@ -155,13 +154,17 @@
 
 .card-menu{
 	margin-bottom: 2rem;
-	.card-img{
+	.card-img {
 		cursor: pointer;
+		width: 100%;
+		padding-top: 65%;
+		background-size: 100% 100%;
 	}
 	.card-title{
 		font-size: 1.0rem;
 		font-weight: bold;
 		cursor: pointer;
+		text-transform: capitalize;
 	}
 	.card-text{
 		font-size: .9rem;

@@ -1,43 +1,41 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { getDataByMethod, submitAnswer } from '../api';
 
 class Bounding extends Component {
 	state = {
-		id: null,
 		img: null,
 		rects: [],
 	};
 
-	componentDidMount() {
-		getDataByMethod(1)
-			.then(data => {
-				console.log(data);
-				let img = new Image();
-				img.src = `${data.DataPath}`;
-				img.crossOrigin = 'Anonymous';
-				img.onload = () => {
-					this.setState({ id: data.ID, img: img }, () => {
-						this.initCanvas();
-					});
-				};
-			})
-			.catch(() => {
-				alert('로그인 해주세요');
-				this.props.history.push('/');
+	initialize = () => {
+		let img = new Image();
+		img.src = `${this.props.data.src}`;
+		img.crossOrigin = 'Anonymous';
+		img.onload = () => {
+			this.setState({ img: img }, () => {
+				this.initCanvas();
 			});
+		};
+	};
+
+	componentDidMount() {
+		this.initialize();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.rects.length !== this.state.rects.length) {
 			this.redrawCanvas();
 		}
+
+		if (prevProps.data !== this.props.data) {
+			this.initialize();
+		}
 	}
 
 	submit = () => {
 		if (this.state.rects.length > 0) {
 			const p = this.state.rects[0].pos;
-			submitAnswer(this.state.id, `${p.l},${p.t},${p.l + p.w},${p.t + p.h}`);
+			this.props.onSubmit(`${p.l},${p.t},${p.l + p.w},${p.t + p.h}`);
 		} else {
 			alert('영역을 선택해주세요');
 		}
@@ -84,7 +82,7 @@ class Bounding extends Component {
 						</div>
 					</div>
 				) : (
-					<div> Loading ... </div>
+					<div> Loading Image... </div>
 				)}
 			</div>
 		);

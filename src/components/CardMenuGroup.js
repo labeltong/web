@@ -14,9 +14,9 @@ class CardMenu extends Component {
 						return (
 							<div className="card-menu col-md-4" key={menu.title}>
 								<div className="card">
-									<img
+									<div
 										className="card-img"
-										src={menu.img}
+										style={{ backgroundImage: `url(${menu.img})` }}
 										alt="Card menu"
 										onClick={onClick}
 									/>
