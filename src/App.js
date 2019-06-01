@@ -19,18 +19,16 @@ import './App.scss';
 import { socialLogin } from './api';
 
 class App extends Component {
-	state = {
-		user: null,
-	};
 	render() {
 		return (
 			<Router>
 				<div className="App">
-					<Header user={this.state.user} onLogin={this.handleSocialLogin} />
+					<Header onLogin={this.handleSocialLogin} />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/label/class" component={Classification} />
 						<Route exact path="/label/bounding" component={Bounding} />
+
 						<Route exact path="/label/audio" component={AudioClassification} />
 						<Redirect to="/" />
 					</Switch>
@@ -47,7 +45,6 @@ class App extends Component {
 			user._token.idToken
 		).then(user => {
 			console.log('logged in', user);
-			this.setState({ user: user });
 		});
 	};
 }

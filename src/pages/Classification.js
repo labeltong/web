@@ -1,19 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
+import { getDataByMethod, submitAnswer } from '../api';
 
 class Classification extends Component {
-	state = { img: '', options: [] };
-
+	state = { id: null, img: '', options: [], answer: null };
 	componentDidMount() {
-		fetch('http://54.180.195.179:19432/dataset/list/db_test/get').then(res => {
-			res.json().then(data => {
+		getDataByMethod(2)
+			.then(data => {
 				this.setState({
-					img: data.base_64_data,
-					options: data.Dataq,
+					id: data.ID,
+					img: data.DataPath,
+					options: data.Question.split(','),
 				});
+			})
+			.catch(() => {
+				alert('로그인 해주세요');
+				this.props.history.push('/');
 			});
-		});
 	}
+
+	submit = () => {
+		if (this.state.answer) {
+			submitAnswer(this.state.id, this.state.answer);
+		}
+	};
+
+	onChangeAnswer = event => {
+		this.setState({ answer: event.target.value });
+	};
 
 	render() {
 		return (
@@ -22,24 +36,28 @@ class Classification extends Component {
 				{this.state.img ? (
 					<div className="content">
 						<div className="image col-lg-7">
-							<img
-								src={`data:image/png;base64, ${this.state.img}`}
-								alt="classification"
-							/>
+							<img src={`${this.state.img}`} alt="classification" />
 						</div>
 						<div className="control col-lg-4">
-							<div className="options">
-								{this.state.options.map(option => (
-									<div className="option" key={option}>
-										<input type="radio" name="class-option" value={option} />
-										{option}
-									</div>
-								))}
+							<div
+								className="options"
+								onChange={event => {
+									this.onChangeAnswer(event);
+								}}
+							>
+								{this.state.options.map((option, idx) => {
+									return (
+										<div key={idx} className="option">
+											<input type="radio" name="class-option" value={idx + 1} />
+											{option}
+										</div>
+									);
+								})}
 							</div>
 							<button
 								className="btn"
 								onClick={() => {
-									this.props.history.push('/');
+									this.submit();
 								}}
 							>
 								Submit

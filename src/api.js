@@ -61,3 +61,46 @@ export const registerUser = (email, token, name, phone) => {
 			});
 	});
 };
+
+export const getDataByMethod = method => {
+	return new Promise((resolve, reject) => {
+		if (jwtToken) {
+			fetch(`${apiBaseUrl}/dataset/dmethods/${method}`, {
+				headers: {
+					Authorization: `Bearer ${jwtToken}`,
+				},
+			}).then(res => {
+				res.json().then(data => {
+					resolve(data);
+				});
+			});
+		} else {
+			reject();
+		}
+	});
+};
+
+export const submitAnswer = (id, answer) => {
+	return new Promise((resolve, reject) => {
+		if (jwtToken) {
+			fetch(`${apiBaseUrl}/answer/answer`, {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${jwtToken}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					email: user.email,
+					data_id: id,
+					answer_data: answer,
+				}),
+			}).then(res => {
+				res.json().then(data => {
+					resolve(data);
+				});
+			});
+		} else {
+			reject();
+		}
+	});
+};
