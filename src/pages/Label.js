@@ -70,9 +70,8 @@ class Label extends Component {
 			this.props.user.email,
 			this.props.user.jwt
 		).then(() => {
-			this.fetchData();
+			this.props.updateUser();
 		});
-		this.props.updateUser();
 	};
 }
 

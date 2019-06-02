@@ -113,10 +113,21 @@ class Bounding extends Component {
 		};
 		canvas.onmouseup = e => {
 			if (drag) {
-				if (
-					Math.abs(startX - e.offsetX) >= 30 &&
-					Math.abs(startY - e.offsetY) >= 30
-				) {
+				const dragX = Math.abs(startX - e.offsetX);
+				const dragY = Math.abs(startY - e.offsetY);
+
+				const selectedNaturalArea = (dragX / wRatio) * (dragY / hRatio);
+				const naturalArea =
+					this.state.img.naturalWidth * this.state.img.naturalHeight;
+
+				// too small
+				if (dragX < 30 || dragY < 30) {
+					alert('선택된 영역이 너무 작습니다.');
+				}
+				// too big
+				else if (selectedNaturalArea / naturalArea >= 1 / 3) {
+					alert('선택된 영역이 너무 큽니다.');
+				} else {
 					this.setState({
 						rect: this.getCroppedImage(
 							startX,
@@ -127,9 +138,8 @@ class Bounding extends Component {
 							hRatio
 						),
 					});
-				} else {
-					this.redrawCanvas();
 				}
+				this.redrawCanvas();
 				drag = false;
 			}
 		};
