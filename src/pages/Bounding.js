@@ -44,7 +44,7 @@ class Bounding extends Component {
 				{this.state.img ? (
 					<div className="content">
 						<div className="target col-lg-6">
-							<h6>Find '{this.props.target}' in image below </h6>
+							<h6> {this.props.data.question} </h6>
 							<div className="canvas-wrapper">
 								<canvas ref="canvas">
 									Your browser does not support the canvas element.
@@ -189,9 +189,5 @@ class Bounding extends Component {
 		};
 	};
 }
-
-Bounding.defaultProps = {
-	target: 'Face',
-};
 
 export default withRouter(Bounding);
