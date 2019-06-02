@@ -53,8 +53,8 @@ class Home extends Component {
 		return (
 			<div>
 				<Intro />
-				<CardMenuGroup menus={this.state.methodMenus} />
-				<CardMenuGroup menus={this.state.themeMenus} />
+				<CardMenuGroup menus={this.state.methodMenus} title="Label by method" />
+				<CardMenuGroup menus={this.state.themeMenus} title="Label by tag" />
 			</div>
 		);
 	}

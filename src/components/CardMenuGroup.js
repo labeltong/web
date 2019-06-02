@@ -5,7 +5,7 @@ class CardMenu extends Component {
 	render() {
 		return (
 			<div className="menu-section">
-				<h5 className="title">Label by Method</h5>
+				<h5 className="title">{this.props.title}</h5>
 				<div className="row">
 					{this.props.menus.map(menu => {
 						let onClick = e => {
