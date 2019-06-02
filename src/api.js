@@ -1,4 +1,4 @@
-const apiBaseUrl = 'http://54.180.195.179:13230';
+const apiBaseUrl = 'https://api.label-tong.ml';
 
 export const socialLogin = (email, name, token) => {
 	return new Promise((resolve, reject) => {

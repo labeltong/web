@@ -51,12 +51,7 @@ class Classification extends Component {
 								);
 							})}
 						</div>
-						<button
-							className="btn"
-							onClick={() => {
-								this.submit();
-							}}
-						>
+						<button className="btn" onClick={this.submit}>
 							Submit
 						</button>
 					</div>
