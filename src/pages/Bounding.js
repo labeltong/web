@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 class Bounding extends Component {
 	state = {
 		img: null,
-		rects: [],
+		rect: null,
 	};
 
 	initialize = () => {
@@ -23,18 +23,14 @@ class Bounding extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.rects.length !== this.state.rects.length) {
+		if (prevState.rect !== this.state.rect) {
 			this.redrawCanvas();
-		}
-
-		if (prevProps.data !== this.props.data) {
-			this.initialize();
 		}
 	}
 
 	submit = () => {
-		if (this.state.rects.length > 0) {
-			const p = this.state.rects[0].pos;
+		if (this.state.rect) {
+			const p = this.state.rect.pos;
 			this.props.onSubmit(`${p.l},${p.t},${p.l + p.w},${p.t + p.h}`);
 		} else {
 			alert('영역을 선택해주세요');
@@ -57,19 +53,16 @@ class Bounding extends Component {
 						</div>
 						<div className="control col-lg-4">
 							<div className="images">
-								{this.state.rects.map((r, idx) => (
+								{this.state.rect && (
 									<img
-										src={r.url}
-										key={idx}
-										id={idx}
+										src={this.state.rect.url}
 										onClick={e => {
-											let id = parseInt(e.target.id);
 											this.setState({
-												rects: this.state.rects.filter((r, i) => i !== id),
+												rect: null,
 											});
 										}}
 									/>
-								))}
+								)}
 							</div>
 							<button
 								className="btn"
@@ -125,15 +118,13 @@ class Bounding extends Component {
 					Math.abs(startY - e.offsetY) >= 30
 				) {
 					this.setState({
-						rects: this.state.rects.concat(
-							this.getCroppedImage(
-								startX,
-								startY,
-								e.offsetX,
-								e.offsetY,
-								wRatio,
-								hRatio
-							)
+						rect: this.getCroppedImage(
+							startX,
+							startY,
+							e.offsetX,
+							e.offsetY,
+							wRatio,
+							hRatio
 						),
 					});
 				} else {
@@ -155,9 +146,10 @@ class Bounding extends Component {
 		canvasCtx.drawImage(this.state.img, 0, 0, canvas.width, canvas.height);
 
 		canvasCtx.setLineDash([6]);
-		this.state.rects.forEach(r => {
+		const r = this.state.rect;
+		if (r) {
 			canvasCtx.strokeRect(r.canvas.l, r.canvas.t, r.canvas.w, r.canvas.h);
-		});
+		}
 	};
 
 	getCroppedImage = (x1, y1, x2, y2, wRatio, hRatio) => {
