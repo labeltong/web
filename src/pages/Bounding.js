@@ -9,8 +9,8 @@ class Bounding extends Component {
 
 	initialize = () => {
 		let img = new Image();
-		img.src = `${this.props.data.src}`;
 		img.crossOrigin = 'Anonymous';
+		img.src = `${this.props.data.src}`;
 		img.onload = () => {
 			this.setState({ img: img }, () => {
 				this.initCanvas();
