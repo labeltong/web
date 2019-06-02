@@ -26,6 +26,9 @@ class Bounding extends Component {
 		if (prevState.rect !== this.state.rect) {
 			this.redrawCanvas();
 		}
+		if (prevProps.data !== this.props.data) {
+			this.initialize();
+		}
 	}
 
 	submit = () => {
@@ -121,7 +124,7 @@ class Bounding extends Component {
 					this.state.img.naturalWidth * this.state.img.naturalHeight;
 
 				// too small
-				if (dragX < 30 || dragY < 30) {
+				if (dragX < 15 || dragY < 15) {
 					alert('선택된 영역이 너무 작습니다.');
 				}
 				// too big
@@ -139,9 +142,13 @@ class Bounding extends Component {
 						),
 					});
 				}
-				this.redrawCanvas();
 				drag = false;
+				this.redrawCanvas();
 			}
+		};
+		canvas.onmouseout = e => {
+			drag = false;
+			this.redrawCanvas();
 		};
 
 		// draw image
